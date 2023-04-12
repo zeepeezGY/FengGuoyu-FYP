@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.mapper.SystemAttachmentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.entity.SystemAttachment">
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        att_id AS "attId", name, att_dir AS attDir,satt_dir sattDir ,att_size attSize,att_type attType,   create_time AS createTime,
+        hash ,user_id userId,status,contract_address contractAddress
+    </sql>
+
+
+
+    <select id="list" resultType="map">
+        select
+        <include refid="Base_Column_List"></include>
+        from sys_attachment where user_id=#{userId}
+        <if test="condition != null and condition != ''">
+            and name like CONCAT('%',#{condition},'%')
+        </if>
+        order by create_time DESC
+    </select>
+
+</mapper>
